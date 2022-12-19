@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=verysecretpassword
+    restart: always
+  api:
+    image: api
+    depends_on:
+      - db
+    environment:
+      ConnectionStrings:BenefactDatabase: Host=db;Username=postgres;Database=db;Password=verysecretpassword
+    build: "api/"
+  ui:
+    image: ui
+    environment:
+      API_TARGET: api
+    ports:
+      - "80:80"
+    build: "ui/"
