@@ -39,9 +39,10 @@ namespace API {
         public void ConfigureServices(IServiceCollection services) {
             ConfigureReplicate();
             var serializer = new JSONSerializer(ReplicationModel.Default);
-            services.AddSingleton<IReplicateSerializer>(new JSONSerializer(ReplicationModel.Default,
-                new JSONSerializer.Configuration() { Strict = false, }));
-            services.AddSingleton(serializer);
+            Func<IServiceProvider, JSONSerializer> serConstructor =
+               (_) => new JSONSerializer(ReplicationModel.Default, new JSONSerializer.Configuration() { Strict = false, });
+            services.AddTransient<IReplicateSerializer>(serConstructor);
+            services.AddTransient(serConstructor);
             services.AddDbContext<APIDbContext>(options => {
                 options.EnableSensitiveDataLogging(true);
                 options.UseNpgsql(Configuration.GetConnectionString("Database"));
