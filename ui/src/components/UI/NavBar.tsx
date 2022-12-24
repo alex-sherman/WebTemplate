@@ -24,7 +24,7 @@ export class Navbar extends React.Component<AppProps & { listConfig?: any }, {}>
           id: "brand",
           tooltip: "Home",
           className: "brand center cursor-pointer",
-          img: <img src="/favicon.png" />,
+          img: <img src="/favicon.png" alt="Brand" />,
           onClick: () => this.props.history.push("/"),
         },
       ],
@@ -67,7 +67,7 @@ export class Navbar extends React.Component<AppProps & { listConfig?: any }, {}>
                 return (
                   <div key={`menu ${index}`} className={`grow-even row`}>
                     {section.map((item) => {
-                      const { id, icon, title, className = null, url, hide, tooltip, img } = item;
+                      const { id, icon, title, className = null, hide, tooltip, img } = item;
                       if (hide) return null;
                       return (
                         <Fragment key={id}>

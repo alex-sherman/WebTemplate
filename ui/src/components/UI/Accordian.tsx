@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from "react";
+import { Component, ReactNode } from "react";
 
 interface AccordianChild {
   (args: AccordianChildProps): ReactNode;
@@ -16,7 +16,7 @@ interface Props {
 
 export class Accordion extends Component<Props, { activeIndex: Set<number> }> {
   state = {
-    activeIndex: new Set<number>()
+    activeIndex: new Set<number>(),
   };
 
   handleTitleClick = (index: number) => {

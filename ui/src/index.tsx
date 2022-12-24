@@ -70,7 +70,7 @@ class App extends React.Component<Props, State> {
 
   getChildProps = (props: RouteComponentProps) => {
     let handleError = (e) => {
-      if (e.status === 401 || e.status == 400) {
+      if (e.status === 401) {
         this.onLogoutHandler();
         props.history.replace("/login");
       }
