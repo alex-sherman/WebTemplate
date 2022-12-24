@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 namespace API.DataAccess {
     public struct User {
         public const string NAME_CLAIM = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier";
-        public string Email;
+        public string Name;
         public static User From(ClaimsPrincipal principal, IReplicateSerializer serializer) {
             var claims = principal.Claims.ToDictionary(c => c.Type, c => c);
             if (!claims.ContainsKey(NAME_CLAIM)) throw Auth.NotLoggedIn;
             return new User() {
-                Email = claims[NAME_CLAIM].Value
+                Name = claims[NAME_CLAIM].Value
             };
         }
         public static User From(HttpContext context)

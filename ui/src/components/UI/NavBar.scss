@@ -1,0 +1,125 @@
+#navbar {
+  box-shadow: var(--bg-shadow);
+  z-index: 1;
+  margin-bottom:30px;
+}
+
+.navbar-list {
+  align-items: center;
+  background-color: var(--bg-navbar);
+  color: var(--navbar-text-color);
+  svg:not([color]) {
+    color: var(--navbar-text-color);
+  }
+  .navbar-list-container {
+    height: 60px;
+    display: flex;
+  }
+
+  img {
+    height: 40px;
+    margin: auto;
+  }
+
+  div.navbar-top-left {
+    width: 54px;
+    display: flex;
+    position: absolute;
+    top: 8px;
+  }
+
+  ul.menu {
+    margin: 0;
+    align-items: center;
+    padding: 0px;
+    list-style: none;
+    .placeholder {
+      width: 146px;
+    }
+    .active-li {
+      background-color: rgb(243, 243, 243);
+      transition: box-shadow 0.2s ease;
+      transition: background-color 0.2s ease;
+      box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.16), 2px 3px 6px rgba(0, 0, 0, 0.23);
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    li > span {
+      margin-left: 5px;
+    }
+    li {
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      .icon-title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        span {
+          margin-top: 5px;
+        }
+      }
+      border-radius: 5px 20px;
+      margin: 0 15px;
+    }
+
+    li {
+      padding: 10px 5px;
+      margin: 5px 0;
+    }
+    div {
+      justify-content: space-around;
+    }
+    div:first-child {
+      justify-content: flex-start;
+    }
+    div:last-child {
+      justify-content: flex-end;
+    }
+
+    @media only screen and (min-width: 500px) {
+      li {
+        padding: 10px 7px;
+      }
+    }
+
+    @media only screen and (min-width: 750px) {
+      div {
+        justify-content: space-evenly;
+      }
+    }
+    @media (min-width: 1000px) {
+      li {
+        padding: 10px 20px;
+      }
+    }
+
+    li:not(.brand) {
+      cursor: pointer;
+    }
+    li:not(.brand):hover {
+      background-color: var(--icon-hover);
+      transition: box-shadow 0.2s ease;
+      transition: background-color 0.35s ease;
+      box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.23), 2px 3px 6px rgba(0, 0, 0, 0.03);
+    }
+
+    .active-filter {
+      padding-right: 76px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    ul.menu {
+      margin-left: 0;
+    }
+  }
+}
+
+.login-navbar {
+  ul.menu {
+    margin-left: 0;
+  }
+}

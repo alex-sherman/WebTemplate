@@ -1,0 +1,36 @@
+body {
+  --button-color: #f8faf8;
+  --button-hover: var(--card-hover);
+  button {
+    svg:not([color]) {
+      color: inherit;
+    }
+  }
+}
+
+button {
+  border: none;
+  outline: none;
+  margin: 8px;
+  padding: 10px 16px;
+  &.sm {
+    padding: 7px 12px;
+  }
+  border-radius: 3px;
+  color: var(--text-color);
+  &.danger {
+    color: var(--danger-color);
+  }
+  font-size: 16px;
+  &:not(.light) {
+    font-weight: bold;
+  }
+  cursor: pointer;
+  box-shadow: var(--card-shadow);
+  background-color: var(--button-color);
+
+  border: 1px solid var(--card-border);
+  &:hover {
+    background-color: var(--button-hover);
+  }
+}

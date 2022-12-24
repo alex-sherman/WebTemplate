@@ -39,7 +39,7 @@ namespace API.DataAccess {
             SetUserFromAuthorizationHeader(context);
             var user = User.From(context);
 
-            UserData userData = await context.RequestServices.DoWithDB(db => db.GetUser(user, true));
+            UserData userData = await context.RequestServices.DoWithDB(db => db.GetUser(user.Name, true));
             if (userData == null) throw Auth.MissingUser;
 
             ILogger logger = context.RequestServices.GetService<ILogger<AuthRequiredAttribute>>();
@@ -61,8 +61,7 @@ namespace API.DataAccess {
             var tokenDescriptor = new SecurityTokenDescriptor {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(User.NAME_CLAIM, user.Name),
+                    new Claim(User.NAME_CLAIM, user.LowerName),
                 }),
                 Expires = DateTime.UtcNow.AddDays(28),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -96,26 +95,6 @@ namespace API.DataAccess {
             } catch {
                 return null;
             }
-        }
-        public static async Task<UserData> Authenticate(HttpRequest request, IServiceProvider services) {
-            string token = null;
-            if (request.Headers.ContainsKey("Authorization")) {
-                var bearer = request.Headers["Authorization"].FirstOrDefault(h => h.Substring(0, 6) == "Bearer");
-                if (bearer != null && bearer.Length > 7)
-                    token = bearer.Substring(7, bearer.Length - 7);
-            }
-            if (token == null)
-                request.Cookies.TryGetValue("token", out token);
-            if (token != null) {
-                var email = ValidateUserEmail(token);
-                if (email != null)
-                    return await GetUser(services, email);
-            }
-            return null;
-        }
-        public static async Task<UserData> GetUser(IServiceProvider services, string email) {
-            return await services.DoWithDB(async db => await db.Users
-                .FirstOrDefaultAsync(u => u.Email == email));
         }
     }
 }

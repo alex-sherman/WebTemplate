@@ -12,7 +12,7 @@ services:
     depends_on:
       - db
     environment:
-      ConnectionStrings:BenefactDatabase: Host=db;Username=postgres;Database=db;Password=verysecretpassword
+      ConnectionStrings:Database: Host=db;Username=postgres;Database=db;Password=verysecretpassword
     build: "api/"
   ui:
     image: ui

@@ -12,16 +12,14 @@ namespace API.DataAccess {
     public class UserData {
         public int Id { get; set; }
         [Required]
-        public string Email { get; set; }
+        public string LowerName { get; set; }
         [Required]
         public string Name { get; set; }
         [ReplicateIgnore]
         public string Hash { get; set; }
         public static void Configure(ModelBuilder model) {
             model.Entity<UserData>()
-                .HasAlternateKey(ud => ud.Email);
-            model.Entity<UserData>()
-                .HasAlternateKey(ud => ud.Name);
+                .HasAlternateKey(ud => ud.LowerName);
         }
     }
 }

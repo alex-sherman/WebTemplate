@@ -26,7 +26,8 @@ namespace API.DataAccess {
             query = query.OrderBy(p => p.Id).AsSplitQuery();
             return query;
         }
-        public Task<UserData> GetUser(User user, bool allowNull = false) => GetUser(u => u.Email == user.Email);
+        public Task<UserData> GetUser(string name, bool allowNull = false)
+            => GetUser(u => u.LowerName == name.ToLower(), allowNull);
         public async Task<UserData> GetUser(Expression<Func<UserData, bool>> pred, bool allowNull = false) {
             ChangeTracker.LazyLoadingEnabled = false;
             var query = UserQuery();

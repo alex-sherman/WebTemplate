@@ -1,0 +1,17 @@
+.button-group {
+  display: flex;
+  &:not(.fitted) {
+    margin: 8px;
+  }
+  button {
+    &:not(.sm) {
+      flex-grow: 1;
+      flex-basis: 0;
+    }
+    margin: 0;
+    margin-right: 8px;
+    &:last-child {
+      margin: 0;
+    }
+  }
+}

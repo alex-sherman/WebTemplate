@@ -1,0 +1,50 @@
+.two-section-menu {
+  height: 100%;
+  flex-direction: row;
+  display: flex;
+  #menu-tabs {
+    box-shadow: var(--bg-shadow);
+    width: 300px;
+    flex-direction: column;
+    display: flex;
+    padding: 4px;
+    button {
+      margin: 4px;
+    }
+    .active {
+      background-color: var(--menu-hover);
+      box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.23), 2px 3px 6px rgba(0, 0, 0, 0.03);
+    }
+  }
+  .content {
+    overflow-x: hidden;
+    overflow-y: auto;
+    flex-grow: 1;
+  }
+
+  @mixin vertical {
+    flex-direction: column;
+    #menu-tabs {
+      display: flex;
+      flex-direction: row;
+      width: initial;
+      flex-grow: 0;
+      flex-basis: auto;
+      margin: 0;
+      font-size: 0.8em;
+      .tab {
+        margin: 0.75em;
+        padding: 1em;
+      }
+    }
+    #content {
+      margin: 0.5em 0 0 0;
+    }
+  }
+  &.vertical {
+    @include vertical();
+  }
+  @media only screen and (max-width: 850px) {
+    @include vertical();
+  }
+}
