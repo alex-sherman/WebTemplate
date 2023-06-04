@@ -4,7 +4,7 @@ export interface URLType {
   whiteList?: Array<string>;
   keepCasing?: boolean;
 }
-const urlKeyMap: { [type: string]: { [action: string]: URLType } } = {
+export const URLS: { [type: string]: { [action: string]: URLType } } = {
   users: {
     AUTH: {
       url: "users/auth"
@@ -21,10 +21,8 @@ const urlKeyMap: { [type: string]: { [action: string]: URLType } } = {
   }
 };
 
-function URLS(type: string, action: string, urlParams = {} as { [key: string]: any }) {
-  let urlEntry = { ...urlKeyMap[type][action] } as URLType;
+export function URLF(type: string, action: string, urlParams = {} as { [key: string]: any }) {
+  let urlEntry = { ...URLS[type][action] } as URLType;
   urlEntry.url = `${baseURL}${urlEntry.url}`.replace(/{(.*?)}/g, (_, m) => urlParams[m]);
   return urlEntry;
 }
-
-export default URLS;

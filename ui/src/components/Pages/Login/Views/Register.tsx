@@ -3,6 +3,7 @@ import { ViewContainer } from "../Views";
 import { notifyToast } from "utils";
 import { Input } from "components/UI";
 import { AppProps } from "index";
+import { URLS } from "constants/URLS";
 
 interface Props extends AppProps  {
   onViewChangeHandler(view: string): void;
@@ -23,7 +24,7 @@ class Register extends React.Component<Props, State> {
     // Validate password and confirmPassword
     if (password === confirmPassword) {
       const queryParams = { name, password };
-      await this.props.actionFetch("users", "ADD", queryParams).then((result: any) => {
+      await this.props.urlFetch(URLS.users.ADD, queryParams).then((result: any) => {
         this.props.onLoginHandler(result);
       });
     } else {

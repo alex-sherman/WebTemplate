@@ -20,7 +20,6 @@ import {
   parseToken,
 } from "./utils";
 import "./index.scss";
-import { URLS } from "./constants";
 import { URLType } from "constants/URLS";
 import { Navbar } from "components/UI/NavBar";
 
@@ -39,7 +38,7 @@ interface State {
 export interface AppProps extends RouteComponentProps {
   onLoginHandler(token: string): void;
   onLogoutHandler(): void;
-  actionFetch(type: string, action: string, queryParams?: any, errorHandler?: any): any;
+  urlFetch(url: URLType, queryParams?: any, errorHandler?: any): any;
   token: string;
   query: { [key: string]: string };
 }
@@ -77,7 +76,7 @@ class App extends React.Component<Props, State> {
       notifyToast("error", e.message);
     };
 
-    let urlFetch = async (url: URLType, queryParams: any, errorHandler: any) => {
+    let urlFetch = async (url: URLType, queryParams: any, errorHandler?: any) => {
       let handle = (error) => {
         let handle = middleWare(error, handleError);
         if (errorHandler) handle = middleWare(error, errorHandler, handle);
@@ -100,14 +99,10 @@ class App extends React.Component<Props, State> {
         .catch((e) => handle({ url, message: e.message }));
     };
 
-    let actionFetch = (type, action, queryParams, errorHandler) => {
-      return urlFetch(URLS(type, action), queryParams, errorHandler);
-    };
     return {
       query: parseQuery(props.location.search) as { [key: string]: string },
       handleError,
       urlFetch,
-      actionFetch,
       token: this.state.token,
       onLoginHandler: this.onLoginHandler,
       onLogoutHandler: this.onLogoutHandler,

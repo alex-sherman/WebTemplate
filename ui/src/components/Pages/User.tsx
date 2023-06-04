@@ -2,22 +2,16 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./User.scss";
 import DataSource from "components/DataSource";
+import { AppProps } from "index";
+import { URLS } from "constants/URLS";
 
-interface Props {
-  actionFetch(
-    type: string,
-    action: string,
-    queryParams?: { email?: string; password?: string },
-    errorHandler?: any
-  ): any;
-}
 interface State {}
 
-class User extends React.Component<Props, State> {
+class User extends React.Component<AppProps, State> {
   render() {
-    const { actionFetch } = this.props;
+    const { urlFetch } = this.props;
     return (
-      <DataSource dataSource={async () => await actionFetch("users", "CURRENT")}>
+      <DataSource dataSource={async () => await urlFetch(URLS.user.CURRENT)}>
         {({ data: user }: { data: any }) => (
           <div id="user-profile" className="col grow">
             <div className="border margin padding10">

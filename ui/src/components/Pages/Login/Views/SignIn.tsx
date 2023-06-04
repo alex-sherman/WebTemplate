@@ -4,6 +4,7 @@ import { ViewContainer } from "../Views";
 import { notifyToast } from "utils";
 import { Input } from "components/UI";
 import { AppProps } from "index";
+import { URLS } from "constants/URLS";
 
 interface Props extends AppProps {
   onViewChangeHandler(view: string): void;
@@ -29,7 +30,7 @@ class SignIn extends React.Component<Props, State> {
 
     const queryParams = { name, password };
     await this.props
-      .actionFetch("users", "AUTH", queryParams, this.onError)
+      .urlFetch(URLS.users.LOGIN, queryParams, this.onError)
       .then((result: any) => {
         this.props.onLoginHandler(result);
       });
