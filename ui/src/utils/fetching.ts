@@ -1,10 +1,11 @@
-import { titleCase } from "../utils";
+import { BASEURL, URLType } from "constants/URLS";
+import { titleCase } from ".";
 
-const fetching = async (url, queryParams, token) => {
+const fetching = async (url: URLType, queryParams: any, token: any, baseUrl?: string) => {
   const { url: urlName, whiteList: urlWhiteList = null, keepCasing = false } = url;
-  let options = {
+  let options: any = {
     method: "POST",
-    headers: {}
+    headers: {},
   };
   if (queryParams) {
     if (queryParams.__proto__ !== FormData.prototype) {
@@ -13,7 +14,7 @@ const fetching = async (url, queryParams, token) => {
       if (!urlWhiteList) {
         whiteListedParams = { ...queryParams };
       } else {
-        urlWhiteList.forEach(field => {
+        urlWhiteList.forEach((field) => {
           if (field in queryParams) {
             whiteListedParams[field] = queryParams[field];
           }
@@ -28,7 +29,7 @@ const fetching = async (url, queryParams, token) => {
     options.headers["Authorization"] = token;
   }
 
-  return await fetch(urlName, options);
+  return await fetch(`${baseUrl || BASEURL}${urlName}`, options);
 };
 
 export default fetching;

@@ -18,7 +18,7 @@ class SignIn extends React.Component<Props, State> {
       return true;
     }
     return false;
-  }
+  };
   onSubmit = async ({ name, password }: { name: string; password: string }) => {
     if (!name || !password) {
       const missing = [] as Array<string>;
@@ -28,12 +28,14 @@ class SignIn extends React.Component<Props, State> {
       return;
     }
 
-    const queryParams = { name, password };
-    await this.props
-      .urlFetch(URLS.users.LOGIN, queryParams, this.onError)
-      .then((result: any) => {
-        this.props.onLoginHandler(result);
-      });
+    let form = new FormData();
+    form["LoginForm[username]"] = name;
+    form["LoginForm[password]"] = password;
+    form["yt0"] = "Login";
+
+    await this.props.urlFetch(URLS.users.LOGIN, form, this.onError).then((result: any) => {
+      this.props.onLoginHandler(result);
+    });
   };
 
   btmItems = [
